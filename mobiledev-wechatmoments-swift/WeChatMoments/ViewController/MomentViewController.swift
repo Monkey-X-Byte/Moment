@@ -87,6 +87,17 @@ class MomentViewController: UITableViewController {
 }
 
 private extension MomentViewController {
+    
+    
+    func setTableViewContentInset() {
+        //从状态栏开始布局页面
+        if #available(iOS 11.0, *) {
+            self.tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = false;
+        }
+    }
+    
     func setupTableView() {
         self.dataSource = TweetsDataSource(cellIdentifier: self.cellIdentifier)
         self.delegate = TweetTableViewDelegate(headerIdentifier: self.headerIdentifier, footerIdentifier: self.footerIdentifier)
@@ -97,6 +108,9 @@ private extension MomentViewController {
         self.tableView.tableHeaderView = self.getHeaderView()
         self.tableView.allowsSelection = false
         self.tableView.showsVerticalScrollIndicator = false
+        
+        //Add
+        self.setTableViewContentInset()
 
         self.tableView.separatorStyle = .none
         self.tableView.backgroundColor = .white
